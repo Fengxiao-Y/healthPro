@@ -40,4 +40,15 @@ public class CheckItemServiceImpl implements CheckItemService {
         List<CheckItem> rows = page.getResult();
         return new PageResult(total,rows);
     }
+
+    //根据id删除检查项
+    public void deleteById(Integer id) {
+        //判断当前检查项是否已经关联到检查组
+        long count = checkItemDao.findCountByCheckItemId(id);
+        if(count > 0){
+            //当前检查项已经被关联到检查组，不允许删除
+            new RuntimeException();
+        }
+        checkItemDao.deleteById(id);
+    }
 }
