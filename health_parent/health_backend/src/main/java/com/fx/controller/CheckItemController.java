@@ -1,7 +1,10 @@
 package com.fx.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
+
 import com.fx.constant.MessageConstant;
+import com.fx.entity.PageResult;
+import com.fx.entity.QueryPageBean;
 import com.fx.entity.Result;
 import com.fx.pojo.CheckItem;
 import com.fx.service.CheckItemService;
@@ -30,5 +33,12 @@ public class CheckItemController {
             return new Result(false, MessageConstant.ADD_CHECKITEM_FAIL);
         }
         return new Result(true,MessageConstant.ADD_CHECKITEM_SUCCESS);
+    }
+
+    //检查项分页查询
+    @RequestMapping("/findPage")
+    public PageResult findPage(@RequestBody QueryPageBean queryPageBean){
+        PageResult pageResult = checkItemService.pageQuery(queryPageBean);
+        return pageResult;
     }
 }
