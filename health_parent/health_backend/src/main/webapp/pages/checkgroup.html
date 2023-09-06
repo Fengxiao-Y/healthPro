@@ -282,6 +282,25 @@
             methods: {
                 //编辑
                 handleEdit() {
+                    //表单校验
+                    //发送Ajax请求，将修改后的表单数据（检查组基本信息、勾选的检查项）
+                    axios.post("/checkgroup/edit.do?checkitemIds=" + this.checkitemIds,this.formData).then((res) => {
+                        //关闭编辑窗口
+                        this.dialogFormVisible4Edit = false;
+                        if(res.data.flag){
+                            //操作成功
+                            this.$message({
+                                type:'success',
+                                message:res.data.message
+                            });
+                        }else{
+                            //操作失败
+                            this.$message.erroe(res.data.message);
+                        }
+                    }).finally(() => {
+                        //重新分页查询
+                        this.findPage();
+                    });
                 },
                 //添加
                 handleAdd () {
@@ -343,6 +362,37 @@
                 },
                 // 弹出编辑窗口
                 handleUpdate(row) {
+                    //弹出编辑窗口
+                    this.dialogFormVisible4Edit = true;
+                    this.activeName = 'first';
+                    //发送ajax请求，根据检查组ID查询当前检查组数据，用于基本信息回显
+                    axios.get("/checkgroup/findById.do?id=" + row.id).then((res) => {
+                        if(res.data.flag){
+                            //查询到数据
+                            this.formData = res.data.data;
+                        }else{
+                            //查询失败
+                            this.$message.error(res.data.message);
+                        }
+                    });
+                    //发送Ajax请求，查询所有检查项信息，用于展示检查项列表
+                    axios.get("/checkitem/findAll.do").then((res) => {
+                        if(res.data.flag){
+                            //查询检查项数据成功
+                            this.tableData = res.data.data;
+                            //发送Ajax请求，根据检查组ID查询当前检查组包含的检查项,用于页面复选框回显
+                            axios.get("/checkgroup/findCheckItemIdsByCheckGroupId.do?id=" + row.id).then((res) => {
+                                if(res.data.flag){
+                                    this.checkitemIds = res.data.data;
+                                }else{
+                                    this.$message.error(res.data.message);
+                                }
+                            });
+                        }else {
+                            //查询检查项数据失败，弹出提示信息
+                            this.$message.error(res.data.message);
+                        }
+                    });
                 },
                 //切换页码
                 handleCurrentChange(currentPage) {
