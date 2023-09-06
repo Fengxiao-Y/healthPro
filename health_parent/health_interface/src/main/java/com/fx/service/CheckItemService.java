@@ -4,6 +4,8 @@ import com.fx.entity.PageResult;
 import com.fx.entity.QueryPageBean;
 import com.fx.pojo.CheckItem;
 
+import java.util.List;
+
 /**
  * 服务接口
  */
@@ -18,4 +20,6 @@ public interface CheckItemService {
     public void edit(CheckItem checkItem);
 
     public CheckItem findById(Integer id);
+
+    public List<CheckItem> findAll();
 }
