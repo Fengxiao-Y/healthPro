@@ -2,6 +2,8 @@ package com.fx.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.fx.constant.MessageConstant;
+import com.fx.entity.PageResult;
+import com.fx.entity.QueryPageBean;
 import com.fx.entity.Result;
 import com.fx.pojo.CheckGroup;
 import com.fx.service.CheckGroupService;
@@ -28,5 +30,11 @@ public class CheckGreoupContrroller {
             return new Result(false, MessageConstant.ADD_CHECKGROUP_FAIL);
         }
         return new Result(true,MessageConstant.ADD_CHECKGROUP_SUCCESS);
+    }
+
+    //新增检查组
+    @RequestMapping("/findPage")
+    public PageResult findPage(@RequestBody QueryPageBean queryPageBean){
+        return checkGroupService.pageQuery(queryPageBean);
     }
 }

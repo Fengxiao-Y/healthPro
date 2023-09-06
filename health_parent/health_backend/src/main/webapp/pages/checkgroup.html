@@ -266,7 +266,7 @@
                 pagination: {//分页相关属性
                     currentPage: 1,
                     pageSize:10,
-                    total:100,
+                    total:0,
                     queryString:null,
                 },
                 dataList: [],//列表数据
@@ -307,6 +307,18 @@
                 },
                 //分页查询
                 findPage() {
+                    //封装分页参数
+                    var param = {
+                      currentPage: this.pagination.currentPage,
+                      pageSize: this.pagination.pageSize,
+                      queryString: this.pagination.queryString
+                    };
+                    //发送ajax请求，提交分页相关参数
+                    axios.post("/checkgroup/findPage.do",param).then((res) => {
+                        //为vue对象模型数据赋值，基于双向数据绑定
+                        this.dataList = res.data.rows;
+                        this.pagination.total = res.data.total;
+                    });
                 },
                 // 重置表单
                 resetForm() {
@@ -325,7 +337,7 @@
                             this.tableData = res.data.data;
                         }else {
                             //查询检查项数据失败，弹出提示信息
-                            this.$message.error(res.datd.message);
+                            this.$message.error(res.data.message);
                         }
                     });
                 },
@@ -334,6 +346,9 @@
                 },
                 //切换页码
                 handleCurrentChange(currentPage) {
+                    //为模型数据赋值，当前页码
+                    this.pagination.currentPage = currentPage;
+                    this.findPage();
                 },
                 // 删除
                 handleDelete(row) {

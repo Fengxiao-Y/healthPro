@@ -2,8 +2,12 @@ package com.fx.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
 import com.fx.dao.CheckGroupDao;
+import com.fx.entity.PageResult;
+import com.fx.entity.QueryPageBean;
 import com.fx.pojo.CheckGroup;
 import com.fx.service.CheckGroupService;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,5 +37,14 @@ public class CheckGroupServiceImpl implements CheckGroupService {
                 checkGroupDao.setCheckGroupAndCheckItem(map);
             }
         }
+    }
+
+    public PageResult pageQuery(QueryPageBean queryPageBean) {
+        Integer currentPage = queryPageBean.getCurrentPage();
+        Integer pageSize = queryPageBean.getPageSize();
+        String queryString = queryPageBean.getQueryString();
+        PageHelper.startPage(currentPage,pageSize);//基于拦截器，本地线程绑定
+        Page<CheckGroup> page = checkGroupDao.findByCondition(queryString);
+        return new PageResult(page.getTotal(),page.getResult());
     }
 }
