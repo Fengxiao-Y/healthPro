@@ -26,7 +26,7 @@ public class QiNiuTest {
         String secretKey = "oK2pfhmfFu9yq431WgdbjE66W1A3_0zC7ct9Pk5J";
         String bucket = "yfx-health-space-1";
 //如果是Windows情况下，格式是 D:\\qiniu\\test.png
-        String localFilePath = "C:\\Users\\Laptop\\Desktop\\报销\\长沙交通费.jpg";
+        String localFilePath = "D:\\文档\\个人\\test\\0.jpg";
 //默认不指定key的情况下，以文件内容的hash值作为文件名
         String key = "abc.jpg";
 //        String key = null;

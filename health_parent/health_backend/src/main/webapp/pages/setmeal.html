@@ -252,6 +252,14 @@
             methods: {
                 //文件上传成功后的钩子，response为服务端返回的值，file为当前上传的文件封装成的js对象
                 handleAvatarSuccess(response, file) {
+                    //为模型数据imageUrl模型数据赋值，用于页面预览
+                    this.imageUrl = 'http://s0lif3vhd.hn-bkt.clouddn.com/' + response.data;
+                    this.$message({
+                        type:response.flag ? 'success' : 'error',
+                        message:response.message
+                    });
+                    //设置模型数据（图片名称），用于发送Ajax请求提交到controller
+                    this.formData.img = response.data;
                 },
                 //上传图片之前执行
                 beforeAvatarUpload(file) {
@@ -267,6 +275,23 @@
                 },
                 //添加
                 handleAdd () {
+                    //发送ajax请求，将表单数据（套餐基本信息、检查组ID）提交到后台
+                    axios.post("/setmeal/add.do?checkgroupIds=" + this.checkgroupIds,this.formData).then((res) => {
+                        //关闭新增窗口
+                        this.dialogFormVisible = false;
+                        if(res.data.flag){
+                            //成功
+                            this.$message({
+                                type: 'success',
+                                message: res.data.message
+                            });
+                        }else{
+                            //失败
+                            this.$message.error(res.data.message);
+                        }
+                    }).finally(() => {
+                        this.findPage();
+                    });
                 },
                 //分页查询
                 findPage() {
@@ -275,6 +300,8 @@
                 resetForm() {
                     this.formData = {};
                     this.activeName = 'first';
+                    this.imageUrl = null;
+                    this.checkgroupIds = [];
                 },
                 // 弹出添加窗口
                 handleCreate() {
