@@ -2,15 +2,18 @@ package com.fx.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.fx.constant.MessageConstant;
+import com.fx.constant.RedisConstant;
 import com.fx.entity.Result;
 import com.fx.pojo.Setmeal;
 import com.fx.service.SetmealService;
 import com.fx.utils.QiniuUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import redis.clients.jedis.JedisPool;
 
 import java.io.IOException;
 import java.util.UUID;
@@ -21,6 +24,9 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/setmeal")
 public class SetmealController {
+    //使用JedisPool操作Redis服务
+    @Autowired
+    private JedisPool jedisPool;
 
     //文件上传
     @RequestMapping("/upload")
@@ -32,6 +38,7 @@ public class SetmealController {
         try {
             //文件上传到7牛云
             QiniuUtils.upload2Qiniu(imgFile.getBytes(),fileName);
+            jedisPool.getResource().sadd(RedisConstant.SETMEAL_PIC_RESOURCES,fileName);
         } catch (IOException e) {
             e.printStackTrace();
             return new Result(false, MessageConstant.PIC_UPLOAD_FAIL);

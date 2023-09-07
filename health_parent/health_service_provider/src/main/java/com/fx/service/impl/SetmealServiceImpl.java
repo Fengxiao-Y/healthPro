@@ -1,11 +1,13 @@
 package com.fx.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
+import com.fx.constant.RedisConstant;
 import com.fx.dao.SetmealDao;
 import com.fx.pojo.Setmeal;
 import com.fx.service.SetmealService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+import redis.clients.jedis.JedisPool;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,12 +21,17 @@ public class SetmealServiceImpl implements SetmealService{
 
     @Autowired
     private SetmealDao setmealDao;
+    @Autowired
+    private JedisPool jedisPool;
 
     //新增套餐信息，同时设置关联检查组
     public void add(Setmeal setmeal, Integer[] checkgroupIds) {
         setmealDao.add(setmeal);
         Integer setmealId = setmeal.getId();
         setSetmealAndCheckgroup(setmealId,checkgroupIds);
+        //将图片名称保存到redis集合中
+        String fileName = setmeal.getImg();
+        jedisPool.getResource().sadd(RedisConstant.SETMEAL_PIC_DB_RESOURCES,fileName);
     }
 
     //设置套餐和检查组多对多关系
