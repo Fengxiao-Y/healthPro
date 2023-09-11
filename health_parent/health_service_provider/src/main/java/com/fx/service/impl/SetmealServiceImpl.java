@@ -3,8 +3,13 @@ package com.fx.service.impl;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.fx.constant.RedisConstant;
 import com.fx.dao.SetmealDao;
+import com.fx.entity.PageResult;
+import com.fx.entity.QueryPageBean;
+import com.fx.pojo.CheckGroup;
 import com.fx.pojo.Setmeal;
 import com.fx.service.SetmealService;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import redis.clients.jedis.JedisPool;
@@ -44,5 +49,15 @@ public class SetmealServiceImpl implements SetmealService{
                 setmealDao.setSetmealAndCheckGroup(map);
             }
         }
+    }
+
+
+    public PageResult pageQuery(QueryPageBean queryPageBean) {
+        Integer currentPage = queryPageBean.getCurrentPage();
+        Integer pageSize = queryPageBean.getPageSize();
+        String queryString = queryPageBean.getQueryString();
+        PageHelper.startPage(currentPage,pageSize);//基于拦截器，本地线程绑定
+        Page<Setmeal> page = setmealDao.findByCondition(queryString);
+        return new PageResult(page.getTotal(),page.getResult());
     }
 }

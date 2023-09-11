@@ -295,6 +295,18 @@
                 },
                 //分页查询
                 findPage() {
+                    //封装分页参数
+                    var param = {
+                        currentPage: this.pagination.currentPage,
+                        pageSize: this.pagination.pageSize,
+                        queryString: this.pagination.queryString
+                    };
+                    //发送ajax请求，提交分页相关参数
+                    axios.post("/setmeal/findPage.do",param).then((res) => {
+                        //为vue对象模型数据赋值，基于双向数据绑定
+                        this.dataList = res.data.rows;
+                        this.pagination.total = res.data.total;
+                    });
                 },
                 // 重置表单
                 resetForm() {
@@ -320,6 +332,9 @@
                 },
                 //切换页码
                 handleCurrentChange(currentPage) {
+                    //为模型数据赋值，当前页码
+                    this.pagination.currentPage = currentPage;
+                    this.findPage();
                 }
             }
         })

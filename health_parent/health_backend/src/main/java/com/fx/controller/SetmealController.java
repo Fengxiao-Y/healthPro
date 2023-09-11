@@ -3,6 +3,8 @@ package com.fx.controller;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.fx.constant.MessageConstant;
 import com.fx.constant.RedisConstant;
+import com.fx.entity.PageResult;
+import com.fx.entity.QueryPageBean;
 import com.fx.entity.Result;
 import com.fx.pojo.Setmeal;
 import com.fx.service.SetmealService;
@@ -58,5 +60,10 @@ public class SetmealController {
             return new Result(false,MessageConstant.ADD_SETMEAL_FAIL);
         }
         return new Result(true,MessageConstant.ADD_SETMEAL_SUCCESS);
+    }
+
+    @RequestMapping("/findPage")
+    public PageResult findPage(@RequestBody QueryPageBean queryPageBean){
+        return setmealService.pageQuery(queryPageBean);
     }
 }
