@@ -29,8 +29,8 @@
         <!-- 指定触发的时间，基于Cron表达式 -->
         <property name="cronExpression">
             <!--每天凌晨两点-->
-            <!--<value>0 0 2 * * ?</value>-->
-            <value>0/10 * * * * ?</value><!--10秒执行一次-->
+            <value>0 0 2 * * ?</value>
+            <!--<value>0/10 * * * * ?</value>--><!--10秒执行一次-->
         </property>
     </bean>
     <!-- 注册一个统一的调度工厂，通过这个调度工厂调度任务 -->
