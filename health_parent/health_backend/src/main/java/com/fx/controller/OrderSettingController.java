@@ -16,6 +16,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 预约设置
@@ -47,6 +48,20 @@ public class OrderSettingController {
             //文件解析失败
             e.printStackTrace();
             return new Result(false, MessageConstant.IMPORT_ORDERSETTING_FAIL);
+        }
+    }
+
+    //查询当前月设置的预约数据
+    @RequestMapping("/getOrderSettingByMonth")
+    public Result getOrderSettingByMonth(String date){
+        //date格式yyyy-MM
+        try {
+            List<Map> list = orderSettingService.getOrderSettingByMonth(date);
+            return new Result(true, MessageConstant.GET_ORDERSETTING_SUCCESS,list);
+        } catch (Exception e) {
+            //文件解析失败
+            e.printStackTrace();
+            return new Result(false, MessageConstant.GET_ORDERSETTING_FAIL);
         }
     }
 }

@@ -7,8 +7,7 @@ import com.fx.service.OrderSettingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * 预约设置服务
@@ -33,5 +32,26 @@ public class OrderSettingServiceImpl implements OrderSettingService {
                 }
             }
         }
+    }
+
+    //查询当前月份预约设置的数据
+    public List<Map> getOrderSettingByMonth(String date) {//date格式yyyy-MM
+        String begin = date + "-1";
+        String end = date + "-31";
+        Map<String,String> map = new HashMap<String, String>();
+        map.put("begin",begin);
+        map.put("end",end);
+        List<OrderSetting> list = orderSettingDao.getOrderSettingByMonth(map);
+        List<Map> result = new ArrayList<Map>();
+        if(list!= null && list.size() > 0){
+            for (OrderSetting orderSetting : list) {
+                Map<String,Object> m = new HashMap<String, Object>();
+                m.put("date",orderSetting.getOrderDate().getDate());//获取日期数字（几号）
+                m.put("number",orderSetting.getNumber());
+                m.put("reservations",orderSetting.getReservations());
+                result.add(m);
+            }
+        }
+        return result;
     }
 }
