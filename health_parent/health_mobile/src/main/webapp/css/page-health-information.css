@@ -103,8 +103,8 @@ input::-ms-input-placeholder {
 
 @font-face {
   font-family: 'health-icon';
-  src: url("../fonts/health-icon.eot?l7yt0w");
-  src: url("fonts/health-icon.eot?l7yt0w#iefix") format("embedded-opentype"), url("../fonts/health-icon.ttf?l7yt0w") format("truetype"), url("../fonts/health-icon.woff?l7yt0w") format("woff"), url("../fonts/health-icon.svg?l7yt0w") format("svg");
+  src: url("../WEB-INF/fonts/health-icon.eot?l7yt0w");
+  src: url("fonts/health-icon.eot?l7yt0w#iefix") format("embedded-opentype"), url("../WEB-INF/fonts/health-icon.ttf?l7yt0w") format("truetype"), url("../WEB-INF/fonts/health-icon.woff?l7yt0w") format("woff"), url("../WEB-INF/fonts/health-icon.svg?l7yt0w") format("svg");
   font-weight: normal;
   font-style: normal;
 }
@@ -519,31 +519,49 @@ i {
 /*
  * colors variables
  */
-.article {
-  padding: 3% 5.3%;
+.news-list {
+  padding: 0 4.8% 6.7%;
   background-color: #fff;
 }
 
-.article .title {
-  font-size: 18px;
-  color: #333;
-  font-weight: bold;
+.news-list .news .news-item {
+  padding: 3.5% 0;
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid #f3f2f7;
 }
 
-.article .subtitle {
-  padding-top: 2%;
-  font-size: 12px;
+.news-list .news .news-item .img-object {
+  max-width: 28%;
+  height: auto;
+  margin-right: 2.7%;
+}
+
+.news-list .news .news-item .item-body .ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.news-list .news .news-item .item-body .ellipsis-more {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-all;
+  -webkit-line-clamp: 2;
+  line-height: 1.5;
+}
+
+.news-list .news .news-item .item-body .item-title {
+  margin-top: 0;
+  font-size: 16px;
+  font-weight: normal;
   line-height: 2;
-  color: #999;
+  color: #333;
 }
 
-.article .box {
-  padding-top: 3.3%;
-}
-
-.article .box p {
-  margin-bottom: 2%;
+.news-list .news .news-item .item-body .item-desc {
   font-size: 14px;
-  color: #3b3b3b;
-  line-height: 1.8;
+  color: #666;
 }

@@ -103,8 +103,8 @@ input::-ms-input-placeholder {
 
 @font-face {
   font-family: 'health-icon';
-  src: url("../fonts/health-icon.eot?l7yt0w");
-  src: url("fonts/health-icon.eot?l7yt0w#iefix") format("embedded-opentype"), url("../fonts/health-icon.ttf?l7yt0w") format("truetype"), url("../fonts/health-icon.woff?l7yt0w") format("woff"), url("../fonts/health-icon.svg?l7yt0w") format("svg");
+  src: url("../WEB-INF/fonts/health-icon.eot?l7yt0w");
+  src: url("fonts/health-icon.eot?l7yt0w#iefix") format("embedded-opentype"), url("../WEB-INF/fonts/health-icon.ttf?l7yt0w") format("truetype"), url("../WEB-INF/fonts/health-icon.woff?l7yt0w") format("woff"), url("../WEB-INF/fonts/health-icon.svg?l7yt0w") format("svg");
   font-weight: normal;
   font-style: normal;
 }
@@ -519,60 +519,31 @@ i {
 /*
  * colors variables
  */
-.notice-article {
-  padding-left: 5px;
-  padding-right: 5px;
+.article {
+  padding: 3% 5.3%;
   background-color: #fff;
 }
 
-.notice-article .info-title {
-  font-size: 14px;
+.article .title {
+  font-size: 18px;
   color: #333;
-  line-height: 1;
-  position: relative;
-  padding: 3.5% 3.5% 5px;
-  background-color: #fff;
+  font-weight: bold;
 }
 
-.notice-article .info-title:before {
-  content: '';
-  width: 5px;
-  height: 24px;
-  border-radius: 6px;
-  background-image: linear-gradient(90deg, #26acff, #0088dc);
-  display: table-cell;
-}
-
-.notice-article .info-title .name {
-  display: table-cell;
-  vertical-align: middle;
-  padding-left: 10px;
-  font-size: 16px;
-}
-
-.notice-article .notice-item {
-  border-bottom: 1px solid #e7e7e7;
-}
-
-.notice-article .notice-item .item-title {
-  font-size: 14px;
-  color: #333;
-  line-height: 1;
-  padding: 3.5%;
-}
-
-.notice-article .notice-item .item-subtitle {
-  font-size: 13px;
-  padding: 2.5% 3.5% 5px;
-}
-
-.notice-article .notice-item .item-content {
-  padding-bottom: 2%;
-}
-
-.notice-article .notice-item .item-content p {
-  font-size: 2.5%;
-  color: #888;
+.article .subtitle {
+  padding-top: 2%;
+  font-size: 12px;
   line-height: 2;
-  padding: 0 3.5%;
+  color: #999;
+}
+
+.article .box {
+  padding-top: 3.3%;
+}
+
+.article .box p {
+  margin-bottom: 2%;
+  font-size: 14px;
+  color: #3b3b3b;
+  line-height: 1.8;
 }
