@@ -31,15 +31,15 @@
 }
 
 .bg-link .risk-item.item-one {
-  background-image: url(../WEB-INF/img/widget-risk01.png);
+  background-image: url(../img/widget-risk01.png);
 }
 
 .bg-link .risk-item.item-two {
-  background-image: url(../WEB-INF/img/widget-risk02.png);
+  background-image: url(../img/widget-risk02.png);
 }
 
 .bg-link .risk-item.item-three {
-  background-image: url(../WEB-INF/img/widget-risk03.png);
+  background-image: url(../img/widget-risk03.png);
 }
 
 .bg-link .risk-item .icon-text {
