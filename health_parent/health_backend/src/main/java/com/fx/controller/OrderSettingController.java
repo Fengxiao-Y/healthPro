@@ -6,6 +6,7 @@ import com.fx.entity.Result;
 import com.fx.pojo.OrderSetting;
 import com.fx.service.OrderSettingService;
 import com.fx.utils.POIUtils;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -62,6 +63,20 @@ public class OrderSettingController {
             //文件解析失败
             e.printStackTrace();
             return new Result(false, MessageConstant.GET_ORDERSETTING_FAIL);
+        }
+    }
+
+    //查询当前月设置的预约数据
+    @RequestMapping("/editNumberByDate")
+    public Result editNumberByDate(@RequestBody OrderSetting orderSetting){
+        //date格式yyyy-MM
+        try {
+            orderSettingService.editNumberByDate(orderSetting);
+            return new Result(true, MessageConstant.ORDERSETTING_SUCCESS);
+        } catch (Exception e) {
+            //文件解析失败
+            e.printStackTrace();
+            return new Result(false, MessageConstant.ORDERSETTING_FAIL);
         }
     }
 }
