@@ -4,6 +4,7 @@ import com.fx.pojo.CheckGroup;
 import com.fx.pojo.Setmeal;
 import com.github.pagehelper.Page;
 
+import java.util.List;
 import java.util.Map;
 
 public interface SetmealDao {
@@ -13,4 +14,6 @@ public interface SetmealDao {
     public void setSetmealAndCheckGroup(Map<String, Integer> map);
 
     Page<Setmeal> findByCondition(String queryString);
+
+    List<Setmeal> findAll();
 }

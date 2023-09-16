@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import redis.clients.jedis.JedisPool;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -59,5 +60,9 @@ public class SetmealServiceImpl implements SetmealService{
         PageHelper.startPage(currentPage,pageSize);//基于拦截器，本地线程绑定
         Page<Setmeal> page = setmealDao.findByCondition(queryString);
         return new PageResult(page.getTotal(),page.getResult());
+    }
+
+    public List<Setmeal> findAll() {
+        return setmealDao.findAll();
     }
 }
