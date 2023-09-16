@@ -5,7 +5,6 @@ import com.fx.constant.RedisConstant;
 import com.fx.dao.SetmealDao;
 import com.fx.entity.PageResult;
 import com.fx.entity.QueryPageBean;
-import com.fx.pojo.CheckGroup;
 import com.fx.pojo.Setmeal;
 import com.fx.service.SetmealService;
 import com.github.pagehelper.Page;
@@ -52,7 +51,6 @@ public class SetmealServiceImpl implements SetmealService{
         }
     }
 
-
     public PageResult pageQuery(QueryPageBean queryPageBean) {
         Integer currentPage = queryPageBean.getCurrentPage();
         Integer pageSize = queryPageBean.getPageSize();
@@ -64,5 +62,10 @@ public class SetmealServiceImpl implements SetmealService{
 
     public List<Setmeal> findAll() {
         return setmealDao.findAll();
+    }
+
+    //根据套餐id查询套餐详情（套餐基本信息、检查组、检查项信息）
+    public Setmeal findById(int id) {
+        return setmealDao.findById(id);
     }
 }

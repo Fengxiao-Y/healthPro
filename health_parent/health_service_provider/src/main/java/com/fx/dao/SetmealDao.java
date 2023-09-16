@@ -16,4 +16,6 @@ public interface SetmealDao {
     Page<Setmeal> findByCondition(String queryString);
 
     List<Setmeal> findAll();
+
+    Setmeal findById(int id);
 }

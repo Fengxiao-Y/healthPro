@@ -14,7 +14,7 @@
     <script src="../plugins/vue/axios-0.18.0.js"></script>
     <script src="../plugins/healthmobile.js"></script>
     <script>
-        var id = getUrlParam("id");
+        var id = getUrlParam("id");//根据请求url中的参数名称获取对应的值
     </script>
 </head>
 <body data-spy="scroll" data-target="#myNavbar" data-offset="150">
@@ -91,10 +91,11 @@
             }
         },
         mounted(){
+            //发送ajax请求，根据套餐id查询套餐详情
             axios.post("/setmeal/findById.do?id=" + id).then((response) => {
                 if(response.data.flag){
                     this.setmeal = response.data.data;
-                    this.imgUrl = 'http://pqjroc654.bkt.clouddn.com/' + this.setmeal.img;
+                    this.imgUrl = 'http://s0lif3vhd.hn-bkt.clouddn.com/' + this.setmeal.img;
                 }
             });
         }
